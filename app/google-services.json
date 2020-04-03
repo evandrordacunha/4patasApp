@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "663239607092",
+    "firebase_url": "https://patasapp-c9422.firebaseio.com",
+    "project_id": "patasapp-c9422",
+    "storage_bucket": "patasapp-c9422.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663239607092:android:4937b41d64a13505845b61",
+        "android_client_info": {
+          "package_name": "com.example.a4patasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663239607092-c1l1f2dd2uohgmsv9nladn5fim90f75q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUvpgm8fY7BTxKFZJFkb3O9bDIlNkXZ98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663239607092-c1l1f2dd2uohgmsv9nladn5fim90f75q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
