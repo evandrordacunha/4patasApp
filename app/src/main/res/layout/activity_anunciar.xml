@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".AnunciarActivity">
+
+    <Button
+        android:id="@+id/bt_foto_anuncio"
+        android:layout_width="334dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="#fff"
+        android:text="Carregar foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_foto_anuncio"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_foto_anuncio"
+        app:layout_constraintEnd_toEndOf="@+id/bt_foto_anuncio"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bt_foto_anuncio"
+        app:layout_constraintTop_toTopOf="@+id/bt_foto_anuncio"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/edit_titulo_anuncio"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Título do anúncio"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_foto_anuncio" />
+
+    <EditText
+        android:id="@+id/edit_descricao_anuncio"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Descrição"
+        android:inputType="textMultiLine"
+        android:paddingLeft="8dp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_titulo_anuncio" />
+
+    <EditText
+        android:id="@+id/edit_email_anuncio"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:hint="E-mail para contato"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_descricao_anuncio" />
+
+    <EditText
+        android:id="@+id/edit_telefone_anuncio"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="Telefone para contato"
+        android:inputType="numberDecimal"
+        android:paddingLeft="8dp"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email_anuncio" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_group_sexo"
+        android:layout_width="134dp"
+        android:layout_marginTop="8dp"
+        android:layout_height="87dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_telefone_anuncio">
+
+        <TextView
+            android:id="@+id/lb_sexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sexo do animal:"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_macho"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:text="Macho"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_femea"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:text="Fêmea"
+            android:textColor="#fff" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bt_anunciar"
+        android:layout_width="0dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bt_background"
+        android:text="Anunciar"
+        android:textColor="@color/roxa"
+        android:textStyle="bold"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_group_sexo"
+        app:layout_constraintVertical_bias="0.737" />
+
+    <RadioGroup
+        android:id="@+id/rg_group_idade"
+        android:layout_width="134dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toEndOf="@id/rg_group_sexo"
+        app:layout_constraintTop_toBottomOf="@+id/edit_telefone_anuncio"><![CDATA[>
+
+        ]]>
+
+        <TextView
+            android:id="@+id/lb_idade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Faixa de idade:"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_filhote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filhote"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_adulto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adulto"
+            android:textColor="#fff" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_porte"
+        android:layout_width="134dp"
+        android:layout_height="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_group_sexo">
+
+        <TextView
+            android:id="@+id/lb_porte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Porte"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_porte_pequeno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pequeno"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_porte_medio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Médio"
+            android:textColor="#fff" />
+
+        <RadioButton
+            android:id="@+id/rb_porte_grande"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grande"
+            android:textColor="#fff" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_tipo_animal"
+        android:layout_width="134dp"
+        android:layout_height="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toEndOf="@+id/rg_porte"
+        app:layout_constraintTop_toBottomOf="@+id/rg_group_idade" >
+
+        <TextView
+            android:id="@+id/lb_tipo_animal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="Tipo de animal" />
+
+        <RadioButton
+            android:id="@+id/rb_cachorro"
+            android:textColor="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cachorro" />
+
+        <RadioButton
+            android:id="@+id/rb_gato"
+            android:textColor="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gato" />
+        <RadioButton
+            android:id="@+id/rb_outro"
+            android:textColor="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Outro" />
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

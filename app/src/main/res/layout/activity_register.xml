@@ -4,6 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/logoCad"
+        android:layout_width="200dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/edit_nomeCad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/edit_text_border"
+        android:paddingLeft="8dp"
+        android:hint="Nome completo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoCad" />
+
+    <EditText
+        android:id="@+id/edit_emailCad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="E-mail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_nomeCad" />
+    <EditText
+        android:id="@+id/edit_senhaCad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="8dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edit_text_border"
+        android:hint="Senha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_emailCad" />
+
+    <EditText
+        android:id="@+id/edit_telefoneCad"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:inputType="phone"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="8dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="Telefone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_senhaCad" />
+
+    <Button
+        android:id="@+id/bt_realizarCadastro"
+        android:layout_width="0dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bt_background"
+        android:textColor="@color/darkmagenta"
+        android:text="Cadastrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_telefoneCad"
+        app:layout_constraintVertical_bias="0.085" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
