@@ -15,9 +15,12 @@ public class Anuncio {
     private String latitude;
     private String longitude;
     private String imagem;
+    private String endAprox;
+    private String cidade;
+    private String estado;
 
-    public Anuncio(String codAnuncio,String imagem,String dataCriacao, String titulo, String descricao, String telefone, String email,
-                   String sexo, String tipoAnimal, String porte, String idade, String latitude, String longitude) {
+    public Anuncio(String codAnuncio, String dataCriacao, String titulo, String descricao, String telefone, String email, String sexo, String tipoAnimal, String porte, String idade, String latitude, String longitude, String imagem, String endAprox, String cidade, String estado) {
+        this.codAnuncio = codAnuncio;
         this.dataCriacao = dataCriacao;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -30,7 +33,33 @@ public class Anuncio {
         this.latitude = latitude;
         this.longitude = longitude;
         this.imagem = imagem;
-        this.codAnuncio = codAnuncio;
+        this.endAprox = endAprox;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getEndAprox() {
+        return endAprox;
+    }
+
+    public void setEndAprox(String endAprox) {
+        this.endAprox = endAprox;
     }
 
     public String getCodAnuncio() {

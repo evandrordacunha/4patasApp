@@ -13,13 +13,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -55,9 +60,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class AnunciarActivity extends AppCompatActivity {
+public class AnunciarActivity extends AppCompatActivity implements LocationListener {
 
     private static final int REQUEST_LOCATION = 1;
     private Button bt_foto;
@@ -83,10 +89,15 @@ public class AnunciarActivity extends AppCompatActivity {
     private ImageView im_foto;
     private String latitude;
     private String longitude;
+    private String cidade;
+    private String estado;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int totalAnunciosFirebase;
-    private final String TAG ="teste";
-
+    private final String TAG = "teste";
+    private Address address;
+    private double dLatitude, dLongitude;
+    private String endAprox;
+    private LocationManager locationManager;
 
 
     //CLIENTE PARA MANIPULACAO DE LOCALIZAÇÃO DO USUARIO
@@ -98,8 +109,23 @@ public class AnunciarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anunciar);
 
+
         //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        onLocationChanged(location);
+        buscarEndereco(location);
 
 //        INICIALIZANDO VARIAVEIS
 
@@ -189,6 +215,7 @@ public class AnunciarActivity extends AppCompatActivity {
 
             case ConnectionResult.SUCCESS:
                 Log.d("teste", "Google play services tá ok");
+
                 break;
         }
 
@@ -206,14 +233,18 @@ public class AnunciarActivity extends AppCompatActivity {
                     .getFusedLocationProviderClient(this /** Context */)
                     .getLastLocation();
         }
+
 //        PEGANDO A ÚLTIMA LOCALIZAÇÃO DO USUÁRIO
         client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+
+
             @Override
             public void onSuccess(Location location) {
+                latitude = "" + location.getLatitude();
+                longitude = "" + location.getLongitude();
+
                 if (location != null) {
-                    Log.i("teste", location.getLatitude() + " " + location.getLongitude());
-                    latitude = "" + location.getLatitude();
-                    longitude = "" + location.getLongitude();
+                    Log.i("teste", "Latitude: " + latitude + " " + "Longitude: " + longitude);
                 } else {
                     Log.e("teste", "Localização está nula!");
                 }
@@ -293,7 +324,8 @@ public class AnunciarActivity extends AppCompatActivity {
                 break;
         }
 
-                        //CRIANDO A HASH PARA REFERÊNCIA DO NOME DO ARQUIVO
+
+        //CRIANDO A HASH PARA REFERÊNCIA DO NOME DO ARQUIVO
         String fileName = UUID.randomUUID().toString();
         final StorageReference ref = FirebaseStorage.getInstance().getReference("/images/fotos/" + fileName);
 
@@ -313,16 +345,16 @@ public class AnunciarActivity extends AppCompatActivity {
                                 // data/hora atual
                                 LocalDateTime agora = LocalDateTime.now();
                                 DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-                                String dataFormatada = formatterData.format(agora).replaceAll("/","").trim();
+                                String dataFormatada = formatterData.format(agora).replaceAll("/", "").trim();
 
                                 DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-                                String horaFormatada = formatterHora.format(agora).replaceAll(":","").trim();
+                                String horaFormatada = formatterHora.format(agora).replaceAll(":", "").trim();
 
-                                final String codAnuncio = dataFormatada+horaFormatada;
-                                dataCriacao = formatterData.format(agora) +formatterHora.format(agora);
+                                final String codAnuncio = dataFormatada + horaFormatada;
+                                dataCriacao = formatterData.format(agora);
 
-                                final Anuncio anuncio = new Anuncio(codAnuncio,uri.toString(), dataCriacao, titulo, descricao,
-                                        telefone, email, sexo, tipo_animal, porte, idade, latitude, longitude);
+                                final Anuncio anuncio = new Anuncio(codAnuncio, uri.toString(), dataCriacao, titulo, descricao,
+                                        telefone, email, sexo, tipo_animal, porte, idade, latitude, longitude, endAprox, cidade, estado);
                                 //CRIANDO A REFERÂNCIA PARA UMA COLEÇÃO DE ANÚNCIOS
                                 db.collection("anuncios").document(anuncio.getCodAnuncio())
                                         .set(anuncio)
@@ -330,18 +362,19 @@ public class AnunciarActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d(TAG, "Anuncio cadastrado com sucesso!");
-                                                Toast.makeText(AnunciarActivity.this, "Anúncio "+codAnuncio +" cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AnunciarActivity.this, "Anúncio " + codAnuncio + " cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
-                                                Intent intent = new Intent(AnunciarActivity.this,MainActivity.class);
+                                                Intent intent = new Intent(AnunciarActivity.this, MainActivity.class);
                                                 startActivity(intent);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.w(TAG, "Erro ao cadastrar anúncio", e);
-                                                Toast.makeText(AnunciarActivity.this, "Falha ao cadastrar anúncio !", Toast.LENGTH_SHORT).show();
-
+                                                Log.w(TAG, "Erro ao cadastrar anúncio!", e);
+                                                Toast.makeText(AnunciarActivity.this, "Falha ao cadastrar anúncio! - Tente novamente.", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(AnunciarActivity.this, AnunciarActivity.class);
+                                                startActivity(intent);
                                             }
                                         });
                             }
@@ -359,7 +392,7 @@ public class AnunciarActivity extends AppCompatActivity {
 //    DELETAR ANUNCIO
 
 
-//    TOTAL DE ANUNCIOS CADASTRADOS
+    /*TOTAL DE ANUNCIOS CADASTRADOS*/
 
     public int getAnuncios() {
 
@@ -382,11 +415,52 @@ public class AnunciarActivity extends AppCompatActivity {
 
                 });
         // [END get_multiple_all]
-        Log.d(TAG,"totalAnuncios" +listaAnuncios.size());
+        Log.d(TAG, "totalAnuncios" + listaAnuncios.size());
         return listaAnuncios.size();
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        dLatitude = location.getLatitude();
+        dLongitude = location.getLongitude();
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    /*TRADUTO DE LOCALIDADE - CONVERTE LATITUDE E LONGITUDE EM DADOS DE ENDEREÇO */
+    public void buscarEndereco(Location location) {
+        String endereco = "";
+        try {
+
+
+            Geocoder geocoder = new Geocoder(this);
+            List<Address> addresses = null;
+            addresses = geocoder.getFromLocation(dLatitude, dLongitude, 1);
+            endereco = addresses.get(0).getAddressLine(0) + "/ "
+                    + addresses.get(0).getAdminArea() + " - " + addresses.get(0).getCountryCode().toUpperCase();
+            cidade = addresses.get(0).getSubAdminArea().toUpperCase();
+            estado = addresses.get(0).getAdminArea().toUpperCase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        endAprox = endereco;
+    }
 }
+
 
 
 

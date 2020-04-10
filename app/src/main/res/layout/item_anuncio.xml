@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/cardview_shadow_start_color"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_item"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_gradient" />
+
+    <TextView
+        android:id="@+id/lb_titulo_item"
+        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TÍTULO"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_item" />
+
+    <TextView
+        android:id="@+id/resp_tipo_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="CACHORRO"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/lb_sexo_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="SEXO:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/resp_tipo_item"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/resp_sexo_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="FÊMEA"
+        app:layout_constraintStart_toEndOf="@+id/lb_sexo_item"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/lb_porte_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="PORTE:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/resp_sexo_item"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/resp_porte_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PEQUENO"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/lb_porte_item"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/separador"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="4dp"
+        android:text="/"
+        app:layout_constraintStart_toEndOf="@+id/resp_porte_item"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/resp_idade_item"
+        android:layout_width="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_height="wrap_content"
+        android:text="FILHOTE"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/separador"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/lb_cidade_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="LOCALIDADE:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resp_tipo_item" />
+
+    <TextView
+        android:id="@+id/resp_cidade_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="SAO JOSE DO RIO PRETO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_cidade_item"
+        app:layout_constraintTop_toBottomOf="@+id/resp_sexo_item" />
+
+    <TextView
+        android:id="@+id/lb_estado_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="ESTADO:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_cidade_item" />
+
+    <TextView
+        android:id="@+id/resp_estado_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="RIO GRANDE DO SUL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_estado_item"
+        app:layout_constraintTop_toBottomOf="@+id/resp_cidade_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

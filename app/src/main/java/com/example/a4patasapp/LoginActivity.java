@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 // PEGANDO O QUE FOI INFORMADO NOS CAMPOS E-MAIL, SENHA
                 emailInformado = mEditEmail.getText().toString();
                 senhaInformada = mEditSenha.getText().toString();

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.Window;
 
 import com.example.a4patasapp.model.Anuncio;
+import com.example.a4patasapp.model.Category;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -64,10 +65,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String latitude;
     private String longitude;
     private List<Anuncio> anuncios = new ArrayList<>();
+    private List<Category> categorias;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
@@ -76,14 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
 //        ###################################################
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 //        RECYCLER VIEW QUE RECEBE ANUNCIOS
-        rv = findViewById(R.id.rv_anuncios);
+
 
 
     }
