@@ -38,6 +38,8 @@ public class Anuncio {
         this.estado = estado;
     }
 
+    public Anuncio(){}
+
     public String getCidade() {
         return cidade;
     }

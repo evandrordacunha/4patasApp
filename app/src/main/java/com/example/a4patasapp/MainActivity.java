@@ -8,13 +8,28 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
-import android.view.Window;
+import android.widget.Adapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a4patasapp.model.Anuncio;
 import com.example.a4patasapp.model.Category;
+import com.example.a4patasapp.model.Haversine;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -30,28 +45,16 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
+import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
+import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,16 +69,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String longitude;
     private List<Anuncio> anuncios = new ArrayList<>();
     private List<Category> categorias;
-
-
-
+    private final String TAG = "teste";
+    private double distanciaAproximada;
+    private double latitudeUser;
+    private double longitudeUser;
+    private GroupAdapter adapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        fetchAnuncios();
 
         //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
@@ -98,10 +102,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        RECYCLER VIEW QUE RECEBE ANUNCIOS
 
-
+        RecyclerView rv = findViewById(R.id.rv_anuncios);
+        adapter = new GroupAdapter();
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(adapter);
 
     }
-
 
     /*
         CRIANDO MENU
@@ -140,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_gallery) {
 
 
-
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(getApplicationContext(), AnunciarActivity.class);
             startActivity(intent);
@@ -154,9 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_desaparecidos) {
 
 
-
         } else if (id == R.id.nav_parceiros) {
-
 
 
         } else if (id == R.id.nav_doacao_app) {
@@ -197,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
 //                SE O PLAY SERVICES ESTÁ DESATIVADO
             case ConnectionResult.SERVICE_DISABLED:
-                Log.d("teste", "showDialog");
+                Log.d(TAG, "showDialog");
 //                EXIBINDO MENSAGEM PARA O USUARIO PEDINDO A ATIVAÇÃO OU ATUALIZACAO DO PLAY SERVICES
                 GoogleApiAvailability.getInstance().getErrorDialog(this, statusCode,
                         0, new DialogInterface.OnCancelListener() {
@@ -209,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case ConnectionResult.SUCCESS:
-                Log.d("teste", "Google play services tá ok");
+                Log.d(TAG, "Google play services tá ok");
                 break;
         }
 
@@ -232,11 +235,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onSuccess(Location location) {
                 if (location != null) {
-                    Log.i("teste", location.getLatitude() + " " + location.getLongitude());
+                    Log.i(TAG, location.getLatitude() + " " + location.getLongitude());
                     latitude = "" + location.getLatitude();
                     longitude = "" + location.getLongitude();
                 } else {
-                    Log.e("teste", "Localização está nula!");
+                    Log.e(TAG, "Localização está nula!");
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -264,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        Log.i("teste", locationSettingsResponse
+                        Log.i(TAG, locationSettingsResponse
                                 .getLocationSettingsStates().isNetworkLocationPresent() + "");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -278,29 +281,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         ex.printStackTrace();
                     }
                 }
-
             }
         });
+
 
 //    LISTENER FICA ESCUTANDO AS POSIÇÕES NOVAS VINDAS DO PROVIDER PARA ATUALIZAÇÃO DE LOCALIZAÇÃO
         LocationCallback locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if(locationResult ==null){
-                    Log.i("teste","Localização nula");
+                if (locationResult == null) {
+                    Log.i(TAG, "Localização nula");
                     return;
                 }
-                for(Location location :locationResult.getLocations()){
-                    Log.i("teste",location.getLatitude() +"");
-                        String latitudeAtualizada = location.getLatitude()+"";
-                        String longitudeAtualziada = location.getLongitude()+"";
+                for (Location location : locationResult.getLocations()) {
+                    Log.i(TAG, location.getLatitude() + "");
+                    latitudeUser = location.getLatitude();
+                    longitudeUser = location.getLongitude();
+                    String latitudeAtualizada = location.getLatitude() + "";
+                    String longitudeAtualizada = location.getLongitude() + "";
+
                 }
             }
 
             @Override
             public void onLocationAvailability(LocationAvailability locationAvailability) {
                 //AVISA SE A LOCALIZAÇÃO ESTÁ OU NÃO DISPONIVEL
-                Log.i("teste", locationAvailability.isLocationAvailable() + "");
+                Log.i(TAG, locationAvailability.isLocationAvailable() + "");
             }
         };
         client.requestLocationUpdates(locationRequest, locationCallback, null);
@@ -310,31 +316,84 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void fetchAnuncios() {
 
         //CRIA UMA REFERENCIA PARA A COLEÇÃO DE ANUNCIOS
-        FirebaseFirestore.getInstance().collection("/anuncios")
+        FirebaseFirestore.getInstance().collection("/doacoes")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         //VERIFICANDO SE ENCONTROU ALGUMA EXCEÇÃO CAPAZ DE IMPEDIR A EXECUÇÃO, CASO ENCONTRE, PARE A APLICAÇÃO
                         if (e != null) {
-                            Log.e("TESTE", "Erro: ", e);
+                            Log.e(TAG, "Erro: ", e);
                             return;
                         }
-
-                        //REFERÊNCIA PARA TODOS POSTOS DA BASE
+                        //REFERÊNCIA PARA TODOS ANÚNCIOS DA BASE
                         List<DocumentSnapshot> documentos = queryDocumentSnapshots.getDocuments();
-                        int totalAnuncios = queryDocumentSnapshots.getDocuments().size();
-
 
                         for (DocumentSnapshot doc : documentos) {
+//                            SERIALIZANDO O ANUNCIO VINDO DO JSON - FIREBASE
                             Anuncio anuncio = doc.toObject(Anuncio.class);
+/*                            double lat = Double.parseDouble(anuncio.getLatitude());
+                            double lon = Double.parseDouble(anuncio.getLongitude());
 
+//                            INICIANDO O CÁLCULO DE DISTANCIA APROXIMADA
+                            Haversine haversine = new Haversine();
+                            distanciaAproximada = haversine.distance(latitudeUser, longitudeUser, lat, lon);
+                            Log.d(TAG, "Distância aproximada " + distanciaAproximada);
+                            Log.d(TAG, anuncio.getTitulo() + "encontrado!");*/
 
-                            Log.d("TESTE", anuncio.getTitulo() + "encontrado!");
                             anuncios.add(anuncio);
+//                            CARREGA O ANÚNCIO PARA A RECYCLER VIEW
+                            adapter.add(new AnuncioItem(anuncio));
                         }
                     }
                 });
     }
 
+
+    private class AnuncioItem extends Item<ViewHolder> {
+
+        private final Anuncio anuncio;
+
+        private AnuncioItem(Anuncio anuncio) {
+            this.anuncio = anuncio;
+        }
+
+        //CONECTANDO AOS OBJETOS PARA PODER EDITAR SEUS VALORES
+
+        @Override
+        public void bind(@NonNull ViewHolder viewHolder, int position) {
+
+            // MANIPULA OBJETO TEXT VIEW DA LISTA
+            TextView titulo = viewHolder.itemView.findViewById(R.id.lb_titulo_item);
+            TextView codigo = viewHolder.itemView.findViewById(R.id.resp_cod_item);
+            TextView tipoAnimal = viewHolder.itemView.findViewById(R.id.resp_tipo_item);
+            TextView sexo = viewHolder.itemView.findViewById(R.id.resp_sexo_item);
+            TextView porte = viewHolder.itemView.findViewById(R.id.resp_porte_item);
+            TextView idade = viewHolder.itemView.findViewById(R.id.resp_idade_item);
+            TextView cidade = viewHolder.itemView.findViewById(R.id.resp_cidade_item);
+            TextView estado = viewHolder.itemView.findViewById(R.id.resp_estado_item);
+            RecyclerView rv_anuncios = viewHolder.itemView.findViewById(R.id.rv_anuncios);
+            ImageView img = viewHolder.itemView.findViewById(R.id.image_item);
+
+
+//            CARREGANDO A IMAGEM DO ANUNCIO
+            Picasso.get().load(anuncio.getImagem()).into(img);
+
+//            CARREGANDO DEMAIS ATRIBUTOS AO LAYOUT
+            titulo.setText(anuncio.getTitulo());
+            codigo.setText(anuncio.getCodAnuncio());
+            tipoAnimal.setText(anuncio.getTipoAnimal());
+            sexo.setText(anuncio.getSexo());
+            porte.setText(anuncio.getPorte());
+            idade.setText(anuncio.getIdade());
+            cidade.setText(anuncio.getCidade());
+            estado.setText(anuncio.getEstado());
+        }
+
+        @Override
+        public int getLayout() {
+            return R.layout.item_anuncio;
+        }
+
+    }
 
 }

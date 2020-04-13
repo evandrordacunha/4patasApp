@@ -47,7 +47,7 @@
         android:ems="10"
         android:hint="Senha"
         android:paddingLeft="8dp"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/edit_email"
         app:layout_constraintStart_toStartOf="parent"

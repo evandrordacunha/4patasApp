@@ -306,10 +306,10 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
         }
         switch (rd_group_tipo.getCheckedRadioButtonId()) {
             case R.id.rb_cachorro:
-                tipo_animal = "CACHORRO";
+                tipo_animal = "CACHORRO(A)";
                 break;
             case R.id.rb_gato:
-                tipo_animal = "GATO";
+                tipo_animal = "GATO(A)";
                 break;
         }
         switch (rd_group_porte.getCheckedRadioButtonId()) {
@@ -353,10 +353,10 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
                                 final String codAnuncio = dataFormatada + horaFormatada;
                                 dataCriacao = formatterData.format(agora);
 
-                                final Anuncio anuncio = new Anuncio(codAnuncio, uri.toString(), dataCriacao, titulo, descricao,
-                                        telefone, email, sexo, tipo_animal, porte, idade, latitude, longitude, endAprox, cidade, estado);
+                                final Anuncio anuncio = new Anuncio(codAnuncio,dataCriacao,titulo,descricao,telefone,email,
+                                        sexo,tipo_animal,porte,idade,latitude,longitude,uri.toString(),endAprox,cidade,estado);
                                 //CRIANDO A REFERÂNCIA PARA UMA COLEÇÃO DE ANÚNCIOS
-                                db.collection("anuncios").document(anuncio.getCodAnuncio())
+                                db.collection("doacoes").document(anuncio.getCodAnuncio())
                                         .set(anuncio)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
