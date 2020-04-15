@@ -1,6 +1,9 @@
 package com.example.a4patasapp.model;
 
-public class Anuncio {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Anuncio implements Parcelable {
 
     private String codAnuncio;
     private String dataCriacao;
@@ -39,6 +42,37 @@ public class Anuncio {
     }
 
     public Anuncio(){}
+
+    protected Anuncio(Parcel in) {
+        codAnuncio = in.readString();
+        dataCriacao = in.readString();
+        titulo = in.readString();
+        descricao = in.readString();
+        telefone = in.readString();
+        email = in.readString();
+        sexo = in.readString();
+        tipoAnimal = in.readString();
+        porte = in.readString();
+        idade = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        imagem = in.readString();
+        endAprox = in.readString();
+        cidade = in.readString();
+        estado = in.readString();
+    }
+
+    public static final Creator<Anuncio> CREATOR = new Creator<Anuncio>() {
+        @Override
+        public Anuncio createFromParcel(Parcel in) {
+            return new Anuncio(in);
+        }
+
+        @Override
+        public Anuncio[] newArray(int size) {
+            return new Anuncio[size];
+        }
+    };
 
     public String getCidade() {
         return cidade;
@@ -166,6 +200,31 @@ public class Anuncio {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(codAnuncio);
+        dest.writeString(dataCriacao);
+        dest.writeString(titulo);
+        dest.writeString(descricao);
+        dest.writeString(telefone);
+        dest.writeString(email);
+        dest.writeString(sexo);
+        dest.writeString(tipoAnimal);
+        dest.writeString(porte);
+        dest.writeString(idade);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(imagem);
+        dest.writeString(endAprox);
+        dest.writeString(cidade);
+        dest.writeString(estado);
     }
 }
 

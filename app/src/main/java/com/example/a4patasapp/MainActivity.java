@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a4patasapp.model.Anuncio;
 import com.example.a4patasapp.model.Category;
-import com.example.a4patasapp.model.Haversine;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -54,10 +53,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         fetchAnuncios();
 
+
         //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
 
@@ -92,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
 //        ###################################################
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -100,12 +104,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
 //        RECYCLER VIEW QUE RECEBE ANUNCIOS
 
         RecyclerView rv = findViewById(R.id.rv_anuncios);
         adapter = new GroupAdapter();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+//                ENCAMINHANDO ANUNCIO PARA A ACTIVITY DetalharAnuncioActivity
+                Intent intent = new Intent(MainActivity.this,DetalharAnuncioActivity.class);
+                AnuncioItem anuncioItem = (AnuncioItem) item;
+                intent.putExtra("anuncio", anuncioItem.anuncio);
+                startActivity(intent);
+                Log.d(TAG,anuncioItem.anuncio.getCodAnuncio());
+            }
+        });
 
     }
 
@@ -331,15 +348,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         for (DocumentSnapshot doc : documentos) {
 //                            SERIALIZANDO O ANUNCIO VINDO DO JSON - FIREBASE
                             Anuncio anuncio = doc.toObject(Anuncio.class);
-/*                            double lat = Double.parseDouble(anuncio.getLatitude());
-                            double lon = Double.parseDouble(anuncio.getLongitude());
-
-//                            INICIANDO O CÁLCULO DE DISTANCIA APROXIMADA
-                            Haversine haversine = new Haversine();
-                            distanciaAproximada = haversine.distance(latitudeUser, longitudeUser, lat, lon);
-                            Log.d(TAG, "Distância aproximada " + distanciaAproximada);
-                            Log.d(TAG, anuncio.getTitulo() + "encontrado!");*/
-
                             anuncios.add(anuncio);
 //                            CARREGA O ANÚNCIO PARA A RECYCLER VIEW
                             adapter.add(new AnuncioItem(anuncio));
@@ -375,8 +383,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ImageView img = viewHolder.itemView.findViewById(R.id.image_item);
 
 
-//            CARREGANDO A IMAGEM DO ANUNCIO
-            Picasso.get().load(anuncio.getImagem()).into(img);
+//            CARREGANDO A IMAGEM DO ANUNCIO JÁ COM BORDAS ARREDONDADAS
+            Picasso.get()
+                    .load(anuncio.getImagem())
+                    .resize(900, 540)
+                    .transform(new RoundedCornersTransformation(22,22))
+                    .into(img);
 
 //            CARREGANDO DEMAIS ATRIBUTOS AO LAYOUT
             titulo.setText(anuncio.getTitulo());
@@ -393,7 +405,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public int getLayout() {
             return R.layout.item_anuncio;
         }
-
     }
 
 }

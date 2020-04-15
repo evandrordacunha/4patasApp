@@ -60,11 +60,9 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/edit_text_border"
-        android:ems="10"
         android:hint="Descrição"
-        android:inputType="textMultiLine"
+        android:inputType="text|textMultiLine"
         android:paddingLeft="8dp"
-        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_titulo_anuncio" />
@@ -143,12 +141,10 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bt_background"
+        android:background="@drawable/bg_button_background_effects"
         android:text="Anunciar"
-        android:textColor="@color/roxa"
+        android:textColor="@color/white"
         android:textStyle="bold"
-
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -127,6 +127,8 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+
+
         //GRAVANDO DADOS DE USUÁRIO NO FIREBASE AUTHENTICATION
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailInformado, senhaInformada)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

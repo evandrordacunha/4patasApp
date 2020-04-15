@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">//Peso total do Layout
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        app:title="Filtros de pesquisa:"
+        app:titleTextColor="#fff"
+        android:background="@drawable/background_gradient"
+         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">//Esse Layout pesa 50% do Layout total
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filtros_pesquisa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/background_gradient"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/lb_distancia_filtro"
+                android:layout_width="0dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_height="20dp"
+                android:text="Exibir anúncios em um raio de até"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/resp_distancia_filtro"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/background_textview"
+                android:text="500"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/orange"
+                app:layout_constraintStart_toEndOf="@id/lb_distancia_filtro"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/unidade_medida"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:text="km."
+                android:textColor="#fff"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toEndOf="@id/resp_distancia_filtro"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/rg_group_sexo_filtro"
+                android:layout_width="134dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_height="87dp"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lb_distancia_filtro">
+
+                <TextView
+                    android:id="@+id/lb_sexo_filtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sexo do animal:"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_macho_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Macho"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_femea_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fêmea"
+                    android:textColor="#fff" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rg_group_idade_filtro"
+                android:layout_width="134dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_height="87dp"
+                app:layout_constraintHorizontal_bias="0.127"
+                app:layout_constraintStart_toEndOf="@id/rg_group_sexo_filtro"
+                app:layout_constraintTop_toBottomOf="@+id/lb_distancia_filtro">
+
+                <TextView
+                    android:id="@+id/lb_idade_filtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Desenvolvimento:"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_filhote_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Filhote"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_adulto_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Adulto"
+                    android:textColor="#fff" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rg_group_porte_filtro"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_group_sexo_filtro">
+
+                <TextView
+                    android:id="@+id/lb_porte_filtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Porte físico:"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/rb_porte_pequeno_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pequeno"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_porte_medio_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Médio"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_porte_grande_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Grande"
+                    android:textColor="#fff" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rg_group_tipo_animal_filtro"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@id/rg_group_porte_filtro"
+                app:layout_constraintTop_toBottomOf="@+id/rg_group_idade_filtro">
+
+                <TextView
+                    android:id="@+id/lb_tipo_animal_filtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de animal:"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/rb_cachorro_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cachorro(a)"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_gato_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gato(a)"
+                    android:textColor="#fff" />
+
+                <RadioButton
+                    android:id="@+id/rb_outro_filtro"
+                    android:layout_width="131dp"
+                    android:layout_height="wrap_content"
+                    android:text="Outro"
+                    android:textColor="#fff" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/bt_filtrar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="FILTRAR"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_button_background_effects"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.396"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_group_tipo_animal_filtro"
+                app:layout_constraintVertical_bias="0.179" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</LinearLayout>

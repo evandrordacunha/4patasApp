@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pegadas"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/image_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:background="@drawable/backgroud_image_border"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_gradient" />
+
+    <TextView
+        android:id="@+id/lb_titulo_detalhe"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TÍTULO"
+        android:textColor="#ff7300"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_cod_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="202012042017"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/lb_cod_anuncio_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_especie_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#493D8B"
+        android:text="ESPÉCIE:"
+        app:layout_constraintTop_toBottomOf="@id/lb_titulo_detalhe"
+        app:layout_constraintStart_toEndOf="@id/resp_cod_detalhe"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/resp_tipo_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CACHORRO(A)"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lb_especie_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_sexo_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="#493D8B"
+        android:layout_marginTop="4dp"
+        android:text="SEXO:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resp_tipo_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_sexo_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:text="FÊMEA"
+        app:layout_constraintTop_toBottomOf="@id/resp_cod_detalhe"
+        app:layout_constraintStart_toEndOf="@id/lb_sexo_detalhe"
+        />
+
+    <TextView
+        android:id="@+id/lb_porte_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="#493D8B"
+        android:layout_marginTop="4dp"
+        android:text="PORTE:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/resp_sexo_detalhe"
+        app:layout_constraintTop_toBottomOf="@id/resp_cod_detalhe"
+        />
+
+    <TextView
+        android:id="@+id/resp_porte_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PEQUENO"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@id/lb_porte_detalhe"
+        app:layout_constraintTop_toBottomOf="@id/lb_especie_detalhe"
+        />
+
+    <TextView
+        android:id="@+id/separador_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:text="/"
+        app:layout_constraintStart_toEndOf="@id/resp_porte_detalhe"
+        app:layout_constraintTop_toBottomOf="@id/resp_tipo_detalhe"
+        />
+
+    <TextView
+        android:id="@+id/resp_idade_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:text="FILHOTE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resp_tipo_detalhe"
+        app:layout_constraintStart_toEndOf="@id/separador_detalhe"
+        app:layout_constraintHorizontal_bias="1.0"
+        />
+
+    <TextView
+        android:id="@+id/lb_cidade_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOCALIDADE:"
+        android:textColor="#493D8B"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_sexo_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_cidade_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:text="SAO JOSE DO RIO PRETO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_cidade_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/resp_porte_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_estado_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="#493D8B"
+        android:layout_marginTop="4dp"
+        android:text="ESTADO:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_cidade_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_estado_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:text="RIO GRANDE DO SUL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_estado_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/resp_cidade_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_cod_anuncio_detalhe"
+        android:layout_width="wrap_content"
+        android:textColor="#493D8B"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:text="CÓD.:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_titulo_detalhe" />
+    <TextView
+        android:id="@+id/lb_telefone_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="FONE:"
+        android:textColor="#493D8B"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_estado_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_telefone_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="51999999999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_telefone_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/resp_estado_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_email_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#493D8B"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:text="E-MAIL:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_telefone_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_email_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:text="TESTE@TESTE.COM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_email_detalhe"
+        app:layout_constraintTop_toBottomOf="@+id/resp_telefone_detalhe" />
+
+    <TextView
+        android:id="@+id/lb_descricao_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#493D8B"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="DESCRIÇÃO:"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_email_detalhe" />
+
+    <TextView
+        android:id="@+id/resp_descricao"
+        android:layout_width="0dp"
+        android:paddingStart="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:inputType="text|textMultiLine"
+        android:text="kkkkk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lb_descricao_detalhe"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/lb_data_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="#493D8B"
+        android:layout_marginTop="4dp"
+        android:text="DATA DE PUBLICAÇÃO:"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resp_descricao" />
+
+    <TextView
+        android:id="@+id/resp_data_detalhe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        android:text="kkkkk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lb_data_detalhe"
+        app:layout_constraintTop_toBottomOf="@id/resp_descricao" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -264,18 +264,34 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
             Toast.makeText(AnunciarActivity.this, "Campo TÍTULO é obrigatório e deve ser informado!", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (titulo.length() > 30) {
+            Toast.makeText(AnunciarActivity.this, "Campo TÍTULO deve ter no máximo 30 caracteres!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 //                PEGANDO DADOS DE DESCRICAO DO ANUNCIO
-        descricao = edit_Descricao.getText().toString().toUpperCase();
+        descricao = edit_Descricao.getText().toString();
         if (descricao == null || descricao.isEmpty()) {
             Toast.makeText(AnunciarActivity.this, "Campo DESCRIÇÃO é obrigatório e deve ser informado!", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (descricao .length()>300) {
+            Toast.makeText(AnunciarActivity.this, "Campo DESCRIÇÃO deve ter no máximo 300 caracteres!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 //                PEGANDO DADOS DE TELEFONE DO ANUNCIO
-        telefone = edit_telefone.getText().toString().toUpperCase();
+        telefone = edit_telefone.getText().toString().toUpperCase().trim();
         if (telefone == null || telefone.isEmpty()) {
             Toast.makeText(AnunciarActivity.this, "Campo TELEFONE é obrigatório e deve ser informado!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (telefone.length() <10) {
+            Toast.makeText(AnunciarActivity.this, "Você deve informar o DDD junto ao número do telefone!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (telefone.length() >12) {
+            Toast.makeText(AnunciarActivity.this, "Telefone deve ter de 10 a 12 dígitos com o DDD incluso!", Toast.LENGTH_SHORT).show();
             return;
         }
 
