@@ -43,20 +43,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/resp_distancia_filtro"
                 android:layout_width="70dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/background_textview"
-                android:text="500"
-                android:inputType="number"
-                android:textStyle="bold"
-                android:textAlignment="center"
                 android:textColor="@color/orange"
+                android:background="@drawable/background_textview"
+                android:textStyle="bold"
+                android:hint="0"
+                android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@id/lb_distancia_filtro"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+
+    />
 
             <TextView
                 android:id="@+id/unidade_medida"

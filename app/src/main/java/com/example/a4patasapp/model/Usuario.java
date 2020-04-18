@@ -1,6 +1,9 @@
 package com.example.a4patasapp.model;
 
-public class Usuario {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Usuario implements Parcelable {
 
     private String userID;
     private String nome;
@@ -10,6 +13,10 @@ public class Usuario {
     private String telefone;
     private String latitude;
     private String longitude;
+
+    public Usuario(){
+
+    }
 
     public Usuario(String userID, String nome, String email, String senha, String dataCriacao, String telefone) {
         this.userID = userID;
@@ -30,6 +37,29 @@ public class Usuario {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    protected Usuario(Parcel in) {
+        userID = in.readString();
+        nome = in.readString();
+        email = in.readString();
+        senha = in.readString();
+        dataCriacao = in.readString();
+        telefone = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
 
     public String getUserID() {
         return userID;
@@ -93,5 +123,22 @@ public class Usuario {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userID);
+        dest.writeString(nome);
+        dest.writeString(email);
+        dest.writeString(senha);
+        dest.writeString(dataCriacao);
+        dest.writeString(telefone);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
     }
 }

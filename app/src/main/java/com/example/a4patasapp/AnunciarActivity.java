@@ -270,12 +270,12 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
         }
 
 //                PEGANDO DADOS DE DESCRICAO DO ANUNCIO
-        descricao = edit_Descricao.getText().toString();
+        descricao = edit_Descricao.getText().toString().toUpperCase();
         if (descricao == null || descricao.isEmpty()) {
             Toast.makeText(AnunciarActivity.this, "Campo DESCRIÇÃO é obrigatório e deve ser informado!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (descricao .length()>300) {
+        if (descricao .length()>800) {
             Toast.makeText(AnunciarActivity.this, "Campo DESCRIÇÃO deve ter no máximo 300 caracteres!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -296,7 +296,7 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
         }
 
 //                PEGANDO DADOS DE E-MAIL DE CONTATO
-        email = edit_email.getText().toString().toUpperCase();
+        email = edit_email.getText().toString();
         //GARANTINDO PREENCHIMENTO DOS DADOS OBRIGATÓRIOS E VALIDAÇÕES DE FORMULÁRIO
         if (email == null || email.isEmpty()) {
             Toast.makeText(AnunciarActivity.this, "Campo EMAIL é obrigatório e deve ser informado!", Toast.LENGTH_SHORT).show();

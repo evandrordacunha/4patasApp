@@ -3,6 +3,8 @@ package com.example.a4patasapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 public class Anuncio implements Parcelable {
 
     private String codAnuncio;

@@ -2,7 +2,6 @@ package com.example.a4patasapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -19,19 +18,19 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static String UserItemFirebase;
     private EditText mEditEmail;
     private EditText mEditSenha;
     private EditText mEditNome;
     private EditText mTelefone;
     private TextView tvCadastrar;
-    private  TextView tvRecuperarSenha;
+    private TextView tvRecuperarSenha;
     private String mUltimoLogin;
     private String emailInformado;
     private String senhaInformada;
@@ -96,7 +95,8 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.i("teste", task.getResult().getUser().getUid());
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    //ENCAMINHANDO EMAIL DO USUARIO AUTENTICADO PARA A ACTIVITY MAIN
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                 }
                             }
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         tvCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRecuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RecuperarSenhaActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RecuperarSenhaActivity.class);
                 startActivity(intent);
             }
         });

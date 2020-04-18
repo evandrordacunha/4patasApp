@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a4patasapp.model.Anuncio;
-import com.example.a4patasapp.model.Category;
+import com.example.a4patasapp.model.Usuario;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -61,7 +62,7 @@ import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, LocationListener {
 
     private static final int REQUEST_LOCATION = 1;
     private AppBarConfiguration mAppBarConfiguration;
@@ -69,20 +70,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient client;
     private String latitude;
     private String longitude;
-    private List<Anuncio> anuncios = new ArrayList<>();
-    private List<Category> categorias;
+    private ArrayList<Anuncio> anuncios = new ArrayList<>();
+    private List<Usuario> usuarios = new ArrayList<>();
     private final String TAG = "teste";
-    private double distanciaAproximada;
     private double latitudeUser;
     private double longitudeUser;
     private GroupAdapter adapter;
+    private Usuario user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fetchAnuncios();
-
+        fetchUsuarios();
 
         //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
 //        RECYCLER VIEW QUE RECEBE ANUNCIOS
 
         RecyclerView rv = findViewById(R.id.rv_anuncios);
@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(@NonNull Item item, @NonNull View view) {
 //                ENCAMINHANDO ANUNCIO PARA A ACTIVITY DetalharAnuncioActivity
-                Intent intent = new Intent(MainActivity.this,DetalharAnuncioActivity.class);
+                Intent intent = new Intent(MainActivity.this, DetalharAnuncioActivity.class);
                 AnuncioItem anuncioItem = (AnuncioItem) item;
                 intent.putExtra("anuncio", anuncioItem.anuncio);
                 startActivity(intent);
-                Log.d(TAG,anuncioItem.anuncio.getCodAnuncio());
+                Log.d(TAG, anuncioItem.anuncio.getCodAnuncio());
             }
         });
 
@@ -161,7 +161,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
+            //ENCAMINHANDO ANUNCIO PARA A ACTIVITY DetalharAnuncioActivity
+            Intent intent = new Intent(getApplicationContext(), FiltrarBuscaActivity.class);
+            String latUser = ""+latitudeUser;
+            String longUser = ""+longitudeUser;
 
+            intent.putExtra("latitude", latUser);
+            Log.d(TAG,"ENVIANDO LATITUDE: "+latUser);
+            intent.putExtra("longitude", longUser);
+            Log.d(TAG,"ENVIANDO LONGITUDE: "+longUser);
+            intent.putParcelableArrayListExtra("anuncios",anuncios);
+            Log.d(TAG,"Lista envia com tamanho " +anuncios.size());
+            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(getApplicationContext(), AnunciarActivity.class);
@@ -183,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -253,6 +264,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSuccess(Location location) {
                 if (location != null) {
                     Log.i(TAG, location.getLatitude() + " " + location.getLongitude());
+                    latitudeUser = location.getLatitude();
+                    longitudeUser = location.getLongitude();
                     latitude = "" + location.getLatitude();
                     longitude = "" + location.getLongitude();
                 } else {
@@ -349,11 +362,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                            SERIALIZANDO O ANUNCIO VINDO DO JSON - FIREBASE
                             Anuncio anuncio = doc.toObject(Anuncio.class);
                             anuncios.add(anuncio);
+                            Log.d(TAG,anuncios.size()+"  tamanho lista");
 //                            CARREGA O ANÚNCIO PARA A RECYCLER VIEW
                             adapter.add(new AnuncioItem(anuncio));
                         }
                     }
                 });
+    }
+
+    private void fetchUsuarios() {
+
+        //CRIA UMA REFERENCIA PARA A COLEÇÃO DE USUARIOS
+        FirebaseFirestore.getInstance().collection("/usuarios")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        //VERIFICANDO SE ENCONTROU ALGUMA EXCEÇÃO CAPAZ DE IMPEDIR A EXECUÇÃO, CASO ENCONTRE, PARE A APLICAÇÃO
+                        if (e != null) {
+                            Log.e(TAG, "Erro: ", e);
+                            return;
+                        }
+                        //REFERÊNCIA PARA TODOS USUARIOS DA BASE
+                        List<DocumentSnapshot> documentos = queryDocumentSnapshots.getDocuments();
+
+                        for (DocumentSnapshot doc : documentos) {
+//                            SERIALIZANDO O ANUNCIO VINDO DO JSON - FIREBASE
+                            Usuario usuario = doc.toObject(Usuario.class);
+                            usuarios.add(usuario);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        latitudeUser =location.getLatitude();
+        longitudeUser = location.getLongitude();
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
 
@@ -379,7 +439,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView idade = viewHolder.itemView.findViewById(R.id.resp_idade_item);
             TextView cidade = viewHolder.itemView.findViewById(R.id.resp_cidade_item);
             TextView estado = viewHolder.itemView.findViewById(R.id.resp_estado_item);
-            RecyclerView rv_anuncios = viewHolder.itemView.findViewById(R.id.rv_anuncios);
             ImageView img = viewHolder.itemView.findViewById(R.id.image_item);
 
 
@@ -387,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Picasso.get()
                     .load(anuncio.getImagem())
                     .resize(900, 540)
-                    .transform(new RoundedCornersTransformation(22,22))
+                    .transform(new RoundedCornersTransformation(22, 22))
                     .into(img);
 
 //            CARREGANDO DEMAIS ATRIBUTOS AO LAYOUT
@@ -406,5 +465,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return R.layout.item_anuncio;
         }
     }
+
+
+    /*CLASE USADA PARA AUXILIAR O ENCAMPSULAMENTO DO OBJETO USER A SER ENVIADO A CLASSE MAIN PARA USO DAS COORDENADAS*/
+
+    private class UserItem extends Item<ViewHolder> {
+
+        private final Usuario usuario;
+
+        private UserItem(Usuario usuario) {
+            this.usuario = usuario;
+        }
+
+        //CONECTANDO AOS OBJETOS PARA PODER EDITAR SEUS VALORES
+
+        @Override
+        public void bind(@NonNull ViewHolder viewHolder, int position) {
+
+            // MANIPULA OBJETO TEXT VIEW DA LISTA
+            TextView dataCriacao = viewHolder.itemView.findViewById(R.id.tv_dataCriacao);
+            TextView userID = viewHolder.itemView.findViewById(R.id.tv_userID);
+            TextView nome = viewHolder.itemView.findViewById(R.id.tv_nomeUser);
+            TextView email = viewHolder.itemView.findViewById(R.id.tv_emailUser);
+            TextView senha = viewHolder.itemView.findViewById(R.id.tv_senhaUser);
+            TextView telefone = viewHolder.itemView.findViewById(R.id.tv_telefoneUser);
+            TextView latitude = viewHolder.itemView.findViewById(R.id.tv_latitudeUser);
+            TextView longitude = viewHolder.itemView.findViewById(R.id.tv_longitudeUser);
+
+//            CARREGANDO DEMAIS ATRIBUTOS AO LAYOUT
+            dataCriacao.setText(usuario.getDataCriacao());
+            userID.setText(usuario.getUserID());
+            nome.setText(usuario.getNome());
+            email.setText(usuario.getEmail());
+            senha.setText(usuario.getSenha());
+            telefone.setText(usuario.getTelefone());
+            latitude.setText(usuario.getLatitude());
+            longitude.setText(usuario.getLongitude());
+        }
+
+        @Override
+        public int getLayout() {
+            return R.layout.item_user;
+        }
+    }
+
+    /*IDENTIFICAR USUARIO RECEBIDO DA LOGIN ACTIVITY*/
+    private void getUsuario(){
+
+        for (int i = 0; i <usuarios.size() ; i++) {
+            //(String userID, String nome, String email, String senha, String dataCriacao, String telefone)
+                Log.d(TAG,"USUARIO "+user.getLatitude() +" " +user.getLongitude());
+            }
+        }
+
 
 }
