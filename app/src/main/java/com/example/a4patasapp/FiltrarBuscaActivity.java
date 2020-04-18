@@ -87,7 +87,7 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
                         rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
                     /*VARRER ANUNCIOS RECEBIDOS*/
                     Anuncio a = null;
-                    Log.d(TAG,"ENTRANDO NO LAÇO COM ANUNCIOS =" +anunciosRecebidos.size());
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
                     for (int i = 0; i < anunciosRecebidos.size(); i++) {
                         a = anunciosRecebidos.get(i);
                         double lat = Double.parseDouble(a.getLatitude());
@@ -95,9 +95,9 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
                         double latUser = Double.parseDouble(latitudeUser);
                         double longtUser = Double.parseDouble(longitudeUser);
 
-                        if(a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
-                        && a.getPorte().equalsIgnoreCase("PEQUENO")&& a.getIdade().equalsIgnoreCase("FILHOTE")){
-                        //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
                             //                        DISTANCIA ENTRE USUARIO E ANUNCIO
                             double dist = Haversine.distance(latUser, longtUser, lat, longt);
                             Log.d(TAG, "Distância entre 2 pontos =  " + dist);
@@ -112,11 +112,1289 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
                     //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
                     Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
                     intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
-                    Log.d(TAG,"ANUNCOS ENVIADOS=  "+anunciosProximos.size());
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
                     startActivity(intent);
                 }
-            }
 
+                /* MACHO - FILHOTE - PEQUENO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - FILHOTE - PEQUENO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - FILHOTE - MEDIO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - FILHOTE - MEDIO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - FILHOTE - MEDIO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - FILHOTE - GRANDE - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - FILHOTE - GRANDE - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - FILHOTE - GRANDE - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+                /*####################   ADULTOS E MACHOS   #####################################*/
+                /* MACHO - ADULTO - PEQUENO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - ADULTO - PEQUENO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - ADULTO - PEQUENO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - ADULTO - MEDIO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - ADULTO - MEDIO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - ADULTO - MEDIO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* MACHO - ADULTO - GRANDE - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - ADULTO - GRANDE - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* MACHO - ADULTO - GRANDE - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_macho_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("MACHO") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* ######################### COMEÇA AS FEMEAS ###############################################*/
+
+                /* FEMEA - FILHOTE - PEQUENO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - FILHOTE - PEQUENO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - FILHOTE - PEQUENO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - FILHOTE - MEDIO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - FILHOTE - MEDIO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - FILHOTE - MEDIO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - FILHOTE - GRANDE - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - FILHOTE - GRANDE - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - FILHOTE - GRANDE - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("FILHOTE")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+                /*####################   ADULTOS E FEMEAS   #####################################*/
+                /* FEMEA - ADULTO - PEQUENO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - ADULTO - PEQUENO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - ADULTO - PEQUENO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_pequeno_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("PEQUENO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - ADULTO - MEDIO - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - ADULTO - MEDIO - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - ADULTO - MEDIO - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_medio_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("MEDIO") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+
+                /* FEMEA - ADULTO - GRANDE - CACHORRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_cachorro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("CACHORRO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - ADULTO - GRANDE - GATO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_gato_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("GATO(A)")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+
+                /* FEMEA - ADULTO - GRANDE - OUTRO*/
+                if (rd_group_sexo_filtro.getCheckedRadioButtonId() == R.id.rb_femea_filtro &&
+                        rd_group_tipo_filtro.getCheckedRadioButtonId() == R.id.rb_outro_filtro &&
+                        rd_group_porte_filtro.getCheckedRadioButtonId() == R.id.rb_porte_grande_filtro &&
+                        rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_adulto_filtro) {
+                    /*VARRER ANUNCIOS RECEBIDOS*/
+                    Anuncio a = null;
+                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
+                    for (int i = 0; i < anunciosRecebidos.size(); i++) {
+                        a = anunciosRecebidos.get(i);
+                        double lat = Double.parseDouble(a.getLatitude());
+                        double longt = Double.parseDouble(a.getLongitude());
+                        double latUser = Double.parseDouble(latitudeUser);
+                        double longtUser = Double.parseDouble(longitudeUser);
+
+                        if (a.getSexo().equalsIgnoreCase("FEMEA") && a.getTipoAnimal().equalsIgnoreCase("OUTRO")
+                                && a.getPorte().equalsIgnoreCase("GRANDE") && a.getIdade().equalsIgnoreCase("ADULTO")) {
+                            //if (a.getSexo() == "MACHO" && a.getTipoAnimal() == "CACHORRO(A)" && a.getPorte() == "MEDIO" && a.getIdade() == "FILHOTE") {
+                            //                        DISTANCIA ENTRE USUARIO E ANUNCIO
+                            double dist = Haversine.distance(latUser, longtUser, lat, longt);
+                            Log.d(TAG, "Distância entre 2 pontos =  " + dist);
+                            if (dist <= raioRecebido) {
+                                anunciosProximos.add(a);
+                            }
+
+                        }
+
+                    }
+
+                    //ENCAMINHA LISTA COM ANUNCIOS PRÓXIMOS A MAIN ACTIVITY
+                    Intent intent = new Intent(getApplicationContext(), AnunciosProximosActivity.class);
+                    intent.putParcelableArrayListExtra("anunciosProximos", anunciosProximos);
+                    Log.d(TAG, "ANUNCOS ENVIADOS=  " + anunciosProximos.size());
+                    startActivity(intent);
+                }
+                /*#### FIM FILTROS  ####*/
+            }
         });
 
     }
