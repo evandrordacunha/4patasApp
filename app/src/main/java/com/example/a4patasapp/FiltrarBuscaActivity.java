@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.a4patasapp.model.Anuncio;
 import com.example.a4patasapp.model.Haversine;
@@ -59,7 +60,6 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
         anunciosRecebidos = getIntent().getParcelableArrayListExtra("anuncios");
         Log.d(TAG, "Latitude recebida" + latitudeUser);
         Log.d(TAG, "Longitude recebida" + longitudeUser);
-        Log.d(TAG, "Lista recebida com total de elementos =" + anunciosRecebidos.size());
 
 
 //        PEGANDO COMPONENTES DO LAYOUT DA ACTIVITY
@@ -76,7 +76,12 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
                 ArrayList<Anuncio> anunciosProximos = new ArrayList<>();
 
                 raio = findViewById(R.id.resp_distancia_filtro);
-                raioRecebido = Double.parseDouble(raio.getText().toString());
+
+                if(raio.getText().toString().length()==0 || raio.getText().toString().equalsIgnoreCase("")){
+                    raioRecebido = 0.1;
+                }else {
+                    raioRecebido = Double.parseDouble(raio.getText().toString());
+                }
                 Log.d(TAG, "RAIO INFORMADO =  " + raioRecebido);
                 Log.d(TAG, "Raio Recebido =  " + raioRecebido);
 
@@ -781,7 +786,6 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
                         rd_group_idade_filtro.getCheckedRadioButtonId() == R.id.rb_filhote_filtro) {
                     /*VARRER ANUNCIOS RECEBIDOS*/
                     Anuncio a = null;
-                    Log.d(TAG, "ENTRANDO NO LAÇO COM ANUNCIOS =" + anunciosRecebidos.size());
                     for (int i = 0; i < anunciosRecebidos.size(); i++) {
                         a = anunciosRecebidos.get(i);
                         double lat = Double.parseDouble(a.getLatitude());
@@ -1399,5 +1403,3 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
 
     }
 }
-
-

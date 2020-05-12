@@ -3,6 +3,7 @@ package com.example.a4patasapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private String senhaInformada;
     private Button btLogin;
     private FirebaseAuth mAuth;
+    private ProgressDialog pBar;
 
 
     @Override
@@ -56,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         btLogin = findViewById(R.id.bt_login);
         tvCadastrar = findViewById(R.id.tv_cadastrar);
         tvRecuperarSenha = findViewById(R.id.tv_recuperar_senha);
+
 
 //        CONFIGURANDO AÇÃO DO BOTÃO LOGIN
         btLogin.setOnClickListener(new View.OnClickListener() {
@@ -95,10 +99,16 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.i("teste", task.getResult().getUser().getUid());
-                                    //ENCAMINHANDO EMAIL DO USUARIO AUTENTICADO PARA A ACTIVITY MAIN
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
+                                    //ProgressBar
+                                    pBar = new ProgressDialog(LoginActivity.this);
+                                    pBar.setCancelable(true);
+                                    pBar.setMessage("Carregando");
+                                    pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                    pBar.show();
                                 }
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -117,6 +127,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                //ProgressBar
+                pBar = new ProgressDialog(LoginActivity.this);
+                pBar.setCancelable(true);
+                pBar.setMessage("Carregando");
+                pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pBar.show();
             }
         });
 
@@ -127,8 +143,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RecuperarSenhaActivity.class);
                 startActivity(intent);
+                //ProgressBar
+                pBar = new ProgressDialog(LoginActivity.this);
+                pBar.setCancelable(true);
+                pBar.setMessage("Carregando");
+                pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pBar.show();
             }
         });
+
     }
 
     //    VERIFICANDO SE O USUARIO ESTÁ ATIVO
@@ -137,3 +160,4 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
     }
 }
+

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/border_item_anuncio"
     tools:context=".RegisterActivity">
 
     <ImageView
@@ -17,48 +17,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/tv_dataCriacao"
+    <EditText
+        android:id="@+id/edit_nomeUser_usuario"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/edit_text_border"
+        android:hint="Nome completo"
         android:paddingLeft="8dp"
-        android:hint="Data de criação"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoCad" />
-    <TextView
-        android:id="@+id/tv_userID"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_border"
-        android:paddingLeft="8dp"
-        android:hint="User ID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dataCriacao" />
-    <TextView
-        android:id="@+id/tv_nomeUser"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_border"
-        android:paddingLeft="8dp"
-        android:hint="Nome completo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_userID" />
 
-    <TextView
-        android:id="@+id/tv_emailUser"
+    <EditText
+        android:id="@+id/edit_emailUser_usuario"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -69,9 +44,9 @@
         android:hint="E-mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nomeUser" />
-    <TextView
-        android:id="@+id/tv_senhaUser"
+        app:layout_constraintTop_toBottomOf="@+id/edit_nomeUser_usuario" />
+    <EditText
+        android:id="@+id/edit_senhaUser_usuario"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -82,10 +57,10 @@
         android:hint="Senha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_emailUser" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_emailUser_usuario" />
 
-    <TextView
-        android:id="@+id/tv_telefoneUser"
+    <EditText
+        android:id="@+id/edit_telefoneUser_usuario"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -96,34 +71,6 @@
         android:hint="Telefone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_senhaUser" />
-
-    <TextView
-        android:id="@+id/tv_latitudeUser"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="8dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Latitude"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_senhaUser" />
-
-    <TextView
-        android:id="@+id/tv_longitudeUser"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="8dp"
-        android:background="@drawable/edit_text_border"
-        android:hint="Longitude"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_latitudeUser" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_senhaUser_usuario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

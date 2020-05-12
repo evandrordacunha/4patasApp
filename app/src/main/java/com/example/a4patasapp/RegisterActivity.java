@@ -32,11 +32,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -54,7 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
     private String senha;
     private String latitude;
     private String longitude;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     //CLIENTE PARA MANIPULACAO DE LOCALIZAÇÃO DO USUARIO
     FusedLocationProviderClient client;
 
@@ -66,9 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 //        INSTANCIANDO CLIENT
         client = LocationServices.getFusedLocationProviderClient(this);
-
-
-
 
 //        INICIALIZANDO AS VARIAVEIS
         mNome = findViewById(R.id.edit_nomeCad);
@@ -127,10 +122,8 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-
-
         //GRAVANDO DADOS DE USUÁRIO NO FIREBASE AUTHENTICATION
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailInformado, senhaInformada)
+        mAuth.createUserWithEmailAndPassword(emailInformado, senhaInformada)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -159,17 +152,19 @@ public class RegisterActivity extends AppCompatActivity {
         //CRIANDO A HASH PARA REFERÊNCIA DO NOME DO ARQUIVO
         String fileName = UUID.randomUUID().toString();
         final String userID = mEmail.getText().toString();
-        String nome = mNome.getText().toString();
+        String nome = mNome.getText().toString().toUpperCase();
         String email = mEmail.getText().toString();
         String senha = mSenha.getText().toString();
         telefone = mTelefone.getText().toString();
-        LocalDateTime dataHora = LocalDateTime.now();
-        dataCriacao = dataHora.toString();
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        String dataFormatada = formatterData.format(agora);
+        dataCriacao = dataFormatada;
 //        USUÁRIO NOVO CADASTRADO
         Usuario usuario = new Usuario(userID, nome, email, senha, dataCriacao, telefone,latitude,longitude);
 
 //       CRIANDO A REFERÂNCIA PARA UMA COLEÇÃO DE USUÁRIOS
-        FirebaseFirestore.getInstance().collection("usuarios").document(userID)
+        db.collection("/usuarios").document(userID)
                 .set(usuario)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

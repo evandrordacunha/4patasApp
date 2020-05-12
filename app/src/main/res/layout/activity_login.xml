@@ -7,15 +7,17 @@
     android:background="@drawable/background_gradient"
     tools:context=".LoginActivity">
 
+
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="377dp"
-        android:layout_height="208dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="365dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
+
 
     <EditText
         android:id="@+id/edit_email"

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pegadas"
@@ -303,6 +301,19 @@
         app:layout_constraintTop_toBottomOf="@+id/resp_descricao" />
 
     <TextView
+        android:id="@+id/lb_contatos_detalhar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="#493D8B"
+        android:layout_marginTop="16dp"
+        android:text="CONTATAR:"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_data_detalhe" />
+
+    <TextView
         android:id="@+id/resp_data_detalhe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -313,5 +324,92 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lb_data_detalhe"
         app:layout_constraintTop_toBottomOf="@id/resp_descricao" />
+    <Button
+        android:id="@+id/bt_whats"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/whats"
+        app:layout_constraintTop_toBottomOf="@id/lb_contatos_detalhar"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/bt_email_detalhar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_email"
+        app:layout_constraintTop_toBottomOf="@id/lb_contatos_detalhar"
+        app:layout_constraintStart_toEndOf="@+id/bt_whats"
+        />
+
+    <Button
+        android:id="@+id/bt_telefonar_detalhar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_telefone"
+        app:layout_constraintTop_toBottomOf="@id/lb_contatos_detalhar"
+        app:layout_constraintStart_toEndOf="@+id/bt_email_detalhar"
+        />
+
+    <Button
+        android:id="@+id/bt_home_detalhar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_voltar"
+        app:layout_constraintTop_toBottomOf="@id/lb_contatos_detalhar"
+        app:layout_constraintStart_toEndOf="@+id/bt_telefonar_detalhar"
+        />
+
+    <TextView
+        android:id="@+id/lb_whats_detalhar"
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        app:layout_constraintTop_toBottomOf="@id/bt_whats"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:text="WhatsApp" />
+
+    <TextView
+        android:id="@+id/lb_email_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_email_detalhar"
+        app:layout_constraintStart_toEndOf="@id/lb_whats_detalhar"
+        android:layout_marginStart="8dp"
+        android:text="E-mail" />
+
+    <TextView
+        android:id="@+id/lb_ligacao_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_email_detalhar"
+        app:layout_constraintStart_toEndOf="@id/lb_email_desaparecido"
+        android:layout_marginStart="16dp"
+        android:text="Ligação" />
+
+    <TextView
+        android:id="@+id/lb_home_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_home_detalhar"
+        app:layout_constraintStart_toEndOf="@id/lb_ligacao_desaparecido"
+        android:layout_marginStart="16dp"
+        android:text="Home" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

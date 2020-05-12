@@ -15,6 +15,7 @@ import android.view.View;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +46,11 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -70,18 +75,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FusedLocationProviderClient client;
     private String latitude;
     private String longitude;
+    private String emailLogado;
     private ArrayList<Anuncio> anuncios = new ArrayList<>();
     private List<Usuario> usuarios = new ArrayList<>();
     private final String TAG = "teste";
     private double latitudeUser;
     private double longitudeUser;
     private GroupAdapter adapter;
-    private Usuario user;
+    private FirebaseAuth mAuth;
+    private FloatingActionButton fab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        PEGANDO USUÁRIO CONECTADO
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        emailLogado  = currentUser.getEmail();
         fetchAnuncios();
         fetchUsuarios();
 
@@ -108,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        RECYCLER VIEW QUE RECEBE ANUNCIOS
 
-        RecyclerView rv = findViewById(R.id.rv_anuncios);
+        rv = findViewById(R.id.rv_anuncios);
         adapter = new GroupAdapter();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
@@ -121,6 +133,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent.putExtra("anuncio", anuncioItem.anuncio);
                 startActivity(intent);
                 Log.d(TAG, anuncioItem.anuncio.getCodAnuncio());
+            }
+        });
+
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnunciarActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -157,7 +178,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //ITEM 1 DO MENU É DIRECIONADO PARA A ACTIVITY INSTITUCIONAL
-        if (id == R.id.nav_home) {
+        if(id==R.id.nav_perfil){
+            Intent intent = new Intent(MainActivity.this,AreaUsuarioActivity.class);
+            intent.putExtra("emailLogado",emailLogado );
+            intent.putParcelableArrayListExtra("anuncios",anuncios);
+            startActivity(intent);
+        }else if (id == R.id.nav_home) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
@@ -177,22 +203,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(getApplicationContext(), AnunciarActivity.class);
             startActivity(intent);
-
-        } else if (id == R.id.nav_alerta) {
-
-
         } else if (id == R.id.nav_ongs) {
 
-
-        } else if (id == R.id.nav_desaparecidos) {
-
-
+        } else if (id == R.id.nav_comunicar_desaparecimento) {
+            Intent intent = new Intent(MainActivity.this,DesaparecidosActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_mural_desaparecidos) {
+            Intent intent = new Intent(MainActivity.this,ListarDesaparecidosActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_duvidas) {
+            Intent intent = new Intent(MainActivity.this,DuvidasAdocaoActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_parceiros) {
 
-
         } else if (id == R.id.nav_doacao_app) {
-
-
+            Intent intent = new Intent(MainActivity.this, DoacaoAppActivity.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -371,7 +397,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void fetchUsuarios() {
-
         //CRIA UMA REFERENCIA PARA A COLEÇÃO DE USUARIOS
         FirebaseFirestore.getInstance().collection("/usuarios")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -439,6 +464,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView idade = viewHolder.itemView.findViewById(R.id.resp_idade_item);
             TextView cidade = viewHolder.itemView.findViewById(R.id.resp_cidade_item);
             TextView estado = viewHolder.itemView.findViewById(R.id.resp_estado_item);
+            TextView data = viewHolder.itemView.findViewById(R.id.resp_data_item);
             ImageView img = viewHolder.itemView.findViewById(R.id.image_item);
 
 
@@ -458,6 +484,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             idade.setText(anuncio.getIdade());
             cidade.setText(anuncio.getCidade());
             estado.setText(anuncio.getEstado());
+            data.setText(anuncio.getDataCriacao());
         }
 
         @Override
@@ -468,55 +495,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     /*CLASE USADA PARA AUXILIAR O ENCAMPSULAMENTO DO OBJETO USER A SER ENVIADO A CLASSE MAIN PARA USO DAS COORDENADAS*/
-
-    private class UserItem extends Item<ViewHolder> {
-
-        private final Usuario usuario;
-
-        private UserItem(Usuario usuario) {
-            this.usuario = usuario;
-        }
-
-        //CONECTANDO AOS OBJETOS PARA PODER EDITAR SEUS VALORES
-
-        @Override
-        public void bind(@NonNull ViewHolder viewHolder, int position) {
-
-            // MANIPULA OBJETO TEXT VIEW DA LISTA
-            TextView dataCriacao = viewHolder.itemView.findViewById(R.id.tv_dataCriacao);
-            TextView userID = viewHolder.itemView.findViewById(R.id.tv_userID);
-            TextView nome = viewHolder.itemView.findViewById(R.id.tv_nomeUser);
-            TextView email = viewHolder.itemView.findViewById(R.id.tv_emailUser);
-            TextView senha = viewHolder.itemView.findViewById(R.id.tv_senhaUser);
-            TextView telefone = viewHolder.itemView.findViewById(R.id.tv_telefoneUser);
-            TextView latitude = viewHolder.itemView.findViewById(R.id.tv_latitudeUser);
-            TextView longitude = viewHolder.itemView.findViewById(R.id.tv_longitudeUser);
-
-//            CARREGANDO DEMAIS ATRIBUTOS AO LAYOUT
-            dataCriacao.setText(usuario.getDataCriacao());
-            userID.setText(usuario.getUserID());
-            nome.setText(usuario.getNome());
-            email.setText(usuario.getEmail());
-            senha.setText(usuario.getSenha());
-            telefone.setText(usuario.getTelefone());
-            latitude.setText(usuario.getLatitude());
-            longitude.setText(usuario.getLongitude());
-        }
-
-        @Override
-        public int getLayout() {
-            return R.layout.item_user;
-        }
-    }
-
-    /*IDENTIFICAR USUARIO RECEBIDO DA LOGIN ACTIVITY*/
-    private void getUsuario(){
-
-        for (int i = 0; i <usuarios.size() ; i++) {
-            //(String userID, String nome, String email, String senha, String dataCriacao, String telefone)
-                Log.d(TAG,"USUARIO "+user.getLatitude() +" " +user.getLongitude());
-            }
-        }
 
 
 }

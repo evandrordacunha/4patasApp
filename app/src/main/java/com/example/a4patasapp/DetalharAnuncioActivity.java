@@ -2,8 +2,15 @@ package com.example.a4patasapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.telephony.PhoneNumberUtils;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,13 +31,17 @@ public class DetalharAnuncioActivity extends AppCompatActivity {
     private String TAG = "teste";
     private String codigoRecebido;
     private Intent intent;
+    private Button bt_whats;
+    private Button bt_email;
+    private Button bt_telefonar;
+    private Button bt_home_detalhar;
+    private  Anuncio anuncioRecebido;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhar_anuncio);
-
 
         // MANIPULA OBJETO TEXT VIEW
         TextView titulo = findViewById(R.id.lb_titulo_detalhe);
@@ -46,9 +57,55 @@ public class DetalharAnuncioActivity extends AppCompatActivity {
         TextView fone = findViewById(R.id.resp_telefone_detalhe);
         TextView data = findViewById(R.id.resp_data_detalhe);
         ImageView img = findViewById(R.id.image_detalhe);
+        bt_whats = findViewById(R.id.bt_whats);
+        bt_email = findViewById(R.id.bt_email_detalhar);
+        bt_telefonar = findViewById(R.id.bt_telefonar_detalhar);
+        bt_home_detalhar = findViewById(R.id.bt_home_detalhar);
+
+        bt_home_detalhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetalharAnuncioActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //            ANUNCIO RECEBIDO DA CLASSE MAIN
-        Anuncio anuncioRecebido = getIntent().getExtras().getParcelable("anuncio");
+        anuncioRecebido = getIntent().getExtras().getParcelable("anuncio");
+
+        //ACTION BOTÃO WHATSAPP ENVIANDO MENSAGEM DIRETA PARA O WHATS CADASTRADO
+        bt_whats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse( "http://api.whatsapp.com/send?1=pt_BR&phone=55"+anuncioRecebido.getTelefone()));
+                startActivity(intent2);
+            }
+        });
+
+//        ACTION BOTÃO E-MAIL ENVIANDO EMAIL PARA O CONTATO
+
+        bt_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] remetente = {anuncioRecebido.getEmail()};
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL,remetente);
+                email.setType("message/rfc822");
+                startActivity(email);
+            }
+        });
+
+//        ACTION BOTÃO TELEFONE LIGANDO PARA O CONTATO
+
+        bt_telefonar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("tel: " +anuncioRecebido.getTelefone());
+                Intent telefonar = new Intent(Intent.ACTION_DIAL, uri);
+                startActivity(telefonar);
+
+            }
+        });
 
         //            CARREGANDO A IMAGEM DO ANUNCIO
        // Picasso.get().load(anuncioRecebido.getImagem()).into(img);

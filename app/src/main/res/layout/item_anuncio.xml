@@ -12,7 +12,7 @@
     <ImageView
         android:id="@+id/image_item"
         android:layout_width="360dp"
-        android:layout_height="198dp"
+        android:layout_height="187dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,14 +23,14 @@
 
     <TextView
         android:id="@+id/lb_titulo_item"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="47dp"
         android:layout_width="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_height="wrap_content"
         android:text="TÍTULO"
-        android:textColor="#ff7300"
+        android:textColor="@color/orange"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_item" />
@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:text="202012042017"
         android:layout_marginStart="4dp"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/lb_cod_anuncio"
         app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
 
@@ -49,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:textSize="12sp"
         android:text="ESPÉCIE:"
         app:layout_constraintTop_toBottomOf="@id/lb_titulo_item"
         app:layout_constraintStart_toEndOf="@id/resp_cod_item"
@@ -59,6 +61,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="CACHORRO(A)"
+        android:textSize="12sp"
         android:layout_marginStart="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lb_especie_item"
@@ -66,12 +69,12 @@
 
     <TextView
         android:id="@+id/lb_sexo_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="33dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="47dp"
         android:text="SEXO:"
+        android:textSize="12sp"
         android:textStyle="bold"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resp_tipo_item" />
 
@@ -79,7 +82,7 @@
         android:id="@+id/resp_sexo_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
+        android:textSize="12sp"
         android:layout_marginStart="4dp"
         android:text="FÊMEA"
         app:layout_constraintTop_toBottomOf="@id/resp_cod_item"
@@ -92,6 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="PORTE:"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/resp_sexo_item"
        app:layout_constraintTop_toBottomOf="@id/resp_cod_item"
@@ -102,6 +106,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="PEQUENO"
+        android:textSize="12sp"
         android:layout_marginStart="4dp"
         app:layout_constraintStart_toEndOf="@id/lb_porte_item"
       app:layout_constraintTop_toBottomOf="@id/lb_especie_item"
@@ -114,6 +119,7 @@
         android:layout_marginEnd="64dp"
         android:layout_marginStart="2dp"
         android:text="/"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/resp_porte_item"
        app:layout_constraintTop_toBottomOf="@id/resp_tipo_item"
         />
@@ -124,6 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="FILHOTE"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/separador"
@@ -134,7 +141,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOCALIDADE:"
-        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        android:layout_marginStart="47dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb_sexo_item" />
@@ -145,6 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="SAO JOSE DO RIO PRETO"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lb_cidade_item"
@@ -154,8 +163,9 @@
         android:id="@+id/lb_estado_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="47dp"
         android:text="ESTADO:"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb_cidade_item" />
@@ -164,8 +174,9 @@
         android:id="@+id/resp_estado_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="RIO GRANDE DO SUL"
+        android:textSize="12sp"
+        android:layout_marginStart="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lb_estado_item"
@@ -175,10 +186,34 @@
         android:id="@+id/lb_cod_anuncio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="47dp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:text="CÓD.:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lb_titulo_item" />
+
+    <TextView
+        android:id="@+id/lb_data_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:text="ANUNCIADO EM:"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_estado_item" />
+
+    <TextView
+        android:id="@+id/resp_data_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12/12/2019"
+        android:layout_marginStart="4dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lb_data_item"
+        app:layout_constraintTop_toBottomOf="@+id/resp_estado_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

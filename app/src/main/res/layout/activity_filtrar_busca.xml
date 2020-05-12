@@ -53,6 +53,7 @@
                 android:background="@drawable/background_textview"
                 android:textStyle="bold"
                 android:hint="0"
+                android:inputType="number"
                 android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@id/lb_distancia_filtro"
                 app:layout_constraintTop_toTopOf="parent"

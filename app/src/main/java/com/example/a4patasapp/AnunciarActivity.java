@@ -92,12 +92,12 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
     private String cidade;
     private String estado;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private int totalAnunciosFirebase;
     private final String TAG = "teste";
-    private Address address;
     private double dLatitude, dLongitude;
     private String endAprox;
     private LocationManager locationManager;
+    private List<Address> addresses;
+    private Location location;
 
 
     //CLIENTE PARA MANIPULACAO DE LOCALIZAÇÃO DO USUARIO
@@ -123,7 +123,7 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         onLocationChanged(location);
         buscarEndereco(location);
 
@@ -464,7 +464,7 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
 
 
             Geocoder geocoder = new Geocoder(this);
-            List<Address> addresses = null;
+
             addresses = geocoder.getFromLocation(dLatitude, dLongitude, 1);
             endereco = addresses.get(0).getAddressLine(0) + "/ "
                     + addresses.get(0).getAdminArea() + " - " + addresses.get(0).getCountryCode().toUpperCase();

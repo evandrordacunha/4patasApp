@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_item_anuncio"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/im_foto_desaparecido"
+        android:layout_width="360dp"
+        android:layout_height="198dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_gradient" />
+
+    <TextView
+        android:id="@+id/tv_nome_desaparecido_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="NOME"
+        android:textColor="#ff7300"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/im_foto_desaparecido" />
+
+    <TextView
+        android:id="@+id/lb_descricao_desaparecido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:text="DESCRIÇÃO"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nome_desaparecido_item" />
+
+    <TextView
+        android:id="@+id/tv_descricao_desaparecido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textMultiLine"
+        android:paddingEnd="4dp"
+        android:textSize="12sp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_descricao_desaparecido" />
+
+    <TextView
+        android:id="@+id/tv_email_desaparecido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_descricao_desaparecido" />
+
+    <Button
+        android:id="@+id/bt_whats_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/whats"
+        app:layout_constraintTop_toBottomOf="@id/lb_contato_desaparecido"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+    <Button
+        android:id="@+id/bt_email_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_email"
+        app:layout_constraintTop_toBottomOf="@id/lb_contato_desaparecido"
+        app:layout_constraintStart_toEndOf="@+id/bt_whats_desaparecido"
+        />
+
+    <Button
+        android:id="@+id/bt_telefonar_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_telefone"
+        app:layout_constraintTop_toBottomOf="@id/lb_contato_desaparecido"
+        app:layout_constraintStart_toEndOf="@+id/bt_email_desaparecido"
+        />
+
+    <Button
+        android:id="@+id/bt_home_deaparecido"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/ic_voltar"
+        app:layout_constraintTop_toBottomOf="@id/lb_contato_desaparecido"
+        app:layout_constraintStart_toEndOf="@+id/bt_telefonar_desaparecido"
+        />
+
+
+    <TextView
+        android:id="@+id/lb_contato_desaparecido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CONTATO"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_descricao_desaparecido"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="16dp"
+        />
+    <TextView
+        android:id="@+id/lb_whats_desaparecido"
+        android:layout_width="38dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        app:layout_constraintTop_toBottomOf="@id/bt_whats_desaparecido"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="40dp"
+        android:text="WhatsApp" />
+
+    <TextView
+        android:id="@+id/lb_email_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_email_desaparecido"
+        app:layout_constraintStart_toEndOf="@id/lb_whats_desaparecido"
+        android:layout_marginStart="8dp"
+        android:text="E-mail" />
+
+    <TextView
+        android:id="@+id/lb_ligacao_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_email_desaparecido"
+        app:layout_constraintStart_toEndOf="@id/lb_email_desaparecido"
+        android:layout_marginStart="16dp"
+        android:text="Ligação" />
+
+    <TextView
+        android:id="@+id/lb_home_desaparecido"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/bt_email_desaparecido"
+        app:layout_constraintStart_toEndOf="@id/lb_ligacao_desaparecido"
+        android:layout_marginStart="16dp"
+        android:text="Home" />
+</androidx.constraintlayout.widget.ConstraintLayout>

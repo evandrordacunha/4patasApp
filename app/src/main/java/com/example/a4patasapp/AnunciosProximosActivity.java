@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a4patasapp.model.Anuncio;
+import com.example.a4patasapp.model.Mensagem;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
+import com.xwray.groupie.OnItemClickListener;
 import com.xwray.groupie.ViewHolder;
 
 import java.util.ArrayList;
@@ -26,18 +31,38 @@ public class AnunciosProximosActivity extends AppCompatActivity {
     private ArrayList<Anuncio> anuncios;
     private RecyclerView rv_anunciosProximos;
     private GroupAdapter adapter;
+    private Button bt_refazer_pesquisa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anuncios_proximos);
 
+
 //        RECEBENDO ANUNCIOS FILTRADOS COMO SENDO PRÓXIMOS AO USUÁRIO
         anuncios = getIntent().getParcelableArrayListExtra("anunciosProximos");
+
+        if(anuncios.size() == 0){
+            Intent intent = new Intent(AnunciosProximosActivity.this,MensagemActivity.class);
+            startActivity(intent);
+        }
+
         Log.d(TAG, "TOTAL DE ANUNCIOS RECEBIDOS=  " + anuncios.size());
         rv_anunciosProximos = findViewById(R.id.rv_anuncios_proximos);
         adapter = new GroupAdapter();
         popularRecycler(anuncios);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull Item item, @NonNull View view) {
+                //                ENCAMINHANDO ANUNCIO PARA A ACTIVITY DetalharAnuncioActivity
+                Intent intent = new Intent(AnunciosProximosActivity.this, DetalharAnuncioActivity.class);
+                AnunciosProximosActivity.AnuncioItem anuncioItem = (AnunciosProximosActivity.AnuncioItem) item;
+                intent.putExtra("anuncio", anuncioItem.anuncio);
+                startActivity(intent);
+                Log.d(TAG, anuncioItem.anuncio.getCodAnuncio());
+            }
+        });
     }
 
     private class AnuncioItem extends Item<ViewHolder> {
@@ -88,6 +113,7 @@ public class AnunciosProximosActivity extends AppCompatActivity {
             return R.layout.item_anuncio;
         }
     }
+
 
     /*MÉTODO RESPONSÁVEL POR POPULAR A RECYCLER VIEW*/
     private void popularRecycler(ArrayList<Anuncio> anuncios) {
