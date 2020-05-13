@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -98,6 +99,8 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
     private LocationManager locationManager;
     private List<Address> addresses;
     private Location location;
+    private ProgressDialog pBar;
+
 
 
     //CLIENTE PARA MANIPULACAO DE LOCALIZAÇÃO DO USUARIO
@@ -380,6 +383,12 @@ public class AnunciarActivity extends AppCompatActivity implements LocationListe
                                                 Log.d(TAG, "Anuncio cadastrado com sucesso!");
                                                 Toast.makeText(AnunciarActivity.this, "Anúncio " + codAnuncio + " cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
+                                                //ProgressBar
+                                                pBar = new ProgressDialog(AnunciarActivity.this);
+                                                pBar.setCancelable(true);
+                                                pBar.setMessage("Cadastrando anúncio:  " +anuncio.getCodAnuncio());
+                                                pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                pBar.show();
                                                 Intent intent = new Intent(AnunciarActivity.this, MainActivity.class);
                                                 startActivity(intent);
                                             }

@@ -52,6 +52,7 @@ public class AreaUsuarioActivity extends AppCompatActivity {
     private Button bt_salvar_alteracoes;
     private GroupAdapter adapter;
     private ArrayList<Anuncio> anunciosRecebidos = new ArrayList<>();
+    private ArrayList<Anuncio> anunciosDoUsuario;
     private String emailLogado;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog pBar;
@@ -76,7 +77,8 @@ public class AreaUsuarioActivity extends AppCompatActivity {
         Log.d(TAG, "Area Usuario - Logado = " + emailLogado);
         Intent intent = getIntent();
         anunciosRecebidos = intent.getParcelableArrayListExtra("anuncios");
-        Log.d(TAG, "Area Usuario - total anuncios recebidos = " + anunciosRecebidos.size());
+        anunciosDoUsuario = anunciosRecebidos;
+        Log.d(TAG, "Area Usuario - total anuncios recebidos = " + anunciosDoUsuario.size());
 
         /*#################################*/
 
@@ -152,10 +154,10 @@ public class AreaUsuarioActivity extends AppCompatActivity {
 
 
     /*IMPORTA ANUNCIOS DO USUÁRIO*/
-    private void carregarAnuncios(ArrayList<Anuncio> anunciosRecebidos, final String emailLogado) {
-        for (int i = 0; i < anunciosRecebidos.size(); i++) {
-            if (anunciosRecebidos.get(i).getEmail().equalsIgnoreCase(emailLogado)) {
-                adapter.add(new AnuncioItemUsuario(anunciosRecebidos.get(i)));
+    private void carregarAnuncios(ArrayList<Anuncio> anunciosDoUsuario, final String emailLogado) {
+        for (int i = 0; i < anunciosDoUsuario.size(); i++) {
+            if (anunciosDoUsuario.get(i).getEmail().equalsIgnoreCase(emailLogado)) {
+                adapter.add(new AnuncioItemUsuario(anunciosDoUsuario.get(i)));
             }
         }
     }
@@ -213,16 +215,10 @@ public class AreaUsuarioActivity extends AppCompatActivity {
     }
 
     public void removerAnuncio(Anuncio anuncio) {
-        int position = anunciosRecebidos.indexOf(anuncio);
+        int position = anunciosDoUsuario.indexOf(anuncio);
 
-        //ProgressBar
-        pBar = new ProgressDialog(AreaUsuarioActivity.this);
-        pBar.setCancelable(true);
-        pBar.setMessage("Excluindo anúncio:  " +anuncio.getCodAnuncio());
-        pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pBar.show();
-        anunciosRecebidos.remove(position);
-        adapter.notifyItemRemoved(position);
+        anunciosDoUsuario.remove(position);
+        
     }
 
 }

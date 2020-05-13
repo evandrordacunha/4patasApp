@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -48,6 +49,7 @@ public class DesaparecidosActivity extends AppCompatActivity {
     private Uri mSelectUri;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final String TAG = "teste";
+    private ProgressDialog pBar;
 
 
     @Override
@@ -195,7 +197,12 @@ public class DesaparecidosActivity extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 Log.d(TAG, "Anuncio cadastrado com sucesso!");
                                                 Toast.makeText(DesaparecidosActivity.this, "Anúncio " + codAnuncio + " cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-
+                                                //ProgressBar
+                                                pBar = new ProgressDialog(DesaparecidosActivity.this);
+                                                pBar.setCancelable(true);
+                                                pBar.setMessage("Cadastrando anúncio:  " +desaparecido.getCodAnuncio());
+                                                pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                                                pBar.show();
                                                 Intent intent = new Intent(DesaparecidosActivity.this, ListarDesaparecidosActivity.class);
                                                 startActivity(intent);
                                             }

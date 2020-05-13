@@ -3,6 +3,7 @@ package com.example.a4patasapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,7 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
     private ArrayList<Anuncio> anunciosRecebidos;
     private ArrayList<Anuncio> anuncios = new ArrayList<>();
     private final String TAG = "teste";
+    private ProgressDialog pBar;
 
 
     @Override
@@ -74,6 +76,12 @@ public class FiltrarBuscaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Anuncio> anunciosProximos = new ArrayList<>();
+                //ProgressBar
+                pBar = new ProgressDialog(FiltrarBuscaActivity.this);
+                pBar.setCancelable(true);
+                pBar.setMessage("Carregando... ");
+                pBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pBar.show();
 
                 raio = findViewById(R.id.resp_distancia_filtro);
 
