@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_perfil"
+            android:title="Área do Usuário" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_adotar"
+            android:title="Adotar um(a) amigo(a)" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_doar"
+            android:title="Registrar doação" />
+
+        <item
+            android:id="@+id/nav_ongs"
+            android:icon="@drawable/ic_ongs"
+            android:title="ONGs" />
+
+        <item
+            android:id="@+id/nav_comunicar_desaparecimento"
+            android:icon="@drawable/ic_comunicar_desaparecimento"
+            android:title="Comunicar desaparecimento" />
+        <item
+            android:id="@+id/nav_mural_desaparecidos"
+            android:icon="@drawable/ic_mural_desaparecidos"
+            android:title="Mural de desaparecidos" />
+
+        <item
+            android:id="@+id/nav_parceiros"
+            android:icon="@drawable/ic_parceiros"
+            android:title="Parceiros" />
+
+        <item
+            android:id="@+id/nav_duvidas"
+            android:icon="@drawable/ic_duvidas"
+            android:title="Dúvidas sobre adoção" />
+        <item
+            android:id="@+id/nav_doacao_app"
+            android:icon="@drawable/ic_doacaoapp"
+            android:title="Ajudar a manter este projeto" />
+    </group>
+</menu>

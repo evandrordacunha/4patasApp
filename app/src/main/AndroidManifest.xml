@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.a4patasapp">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="4 PatasApp"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".AreaUsuarioActivity"></activity>
+        <activity android:name=".DoacaoAppActivity" />
+        <activity android:name=".DesaparecidosActivity" />
+        <activity android:name=".RespostasAdocaoActivity" />
+        <activity android:name=".ListarDesaparecidosActivity" />
+        <activity android:name=".DuvidasAdocaoActivity" />
+        <activity android:name=".MensagemActivity" />
+        <activity android:name=".AnunciosProximosActivity" />
+        <activity android:name=".DetalharAnuncioActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".FiltrarBuscaActivity" />
+        <activity android:name=".RecuperarSenhaActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".AnunciarActivity" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
